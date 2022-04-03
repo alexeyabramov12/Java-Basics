@@ -14,6 +14,8 @@ public class Main {
         printer.print();
         printer.append("кек");
         printer.print();
+        printer.append("number", "pending", 123);
+        System.out.println(printer.getPendingPagesCount());
         System.out.println(printer.getTotalPageCount());
     }
 }
