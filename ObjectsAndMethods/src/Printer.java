@@ -2,10 +2,10 @@ public class Printer {
 
     private String queue = "";
     private int pendingPageCount = 0;
-    private int totalPageCount =0;
+    private int totalPageCount = 0;
 
     public void append(String text) {
-        append(text,"", 1);
+        append(text, "", 1);
     }
 
     public void append(String text, String name) {
@@ -14,7 +14,7 @@ public class Printer {
 
     public void append(String text, String name, int numberOfPages) {
 
-        queue = queue +"\n" +  name + "\n"  + numberOfPages + "шт. " + "\n" + text;
+        queue = queue + "\n" + name + "\n" + numberOfPages + "шт. " + "\n" + text;
         pendingPageCount = pendingPageCount + numberOfPages;
     }
 
@@ -23,9 +23,9 @@ public class Printer {
         pendingPageCount = 0;
     }
 
-    public void print(){
+    public void print() {
         System.out.println(queue);
-        totalPageCount = totalPageCount +pendingPageCount;
+        totalPageCount = totalPageCount + pendingPageCount;
         clear();
     }
 
