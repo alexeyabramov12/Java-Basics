@@ -5,17 +5,9 @@ public class Main {
         basket.add("Milk",40,1,312);
         basket.add("bread", 20,1,123);
         basket.print("Milk");
-
-       Arithmetic arithmetic = new Arithmetic(12,6);
-       arithmetic.print();
-
-        Printer printer = new Printer();
-        printer.append("привет, как дела?", "беседа", 12);
-        printer.print();
-        printer.append("кек");
-        printer.print();
-        printer.append("number", "pending", 123);
-        System.out.println(printer.getPendingPagesCount());
-        System.out.println(printer.getTotalPageCount());
+        Basket basket1 = new Basket();
+        basket.add("butter",40,1,312);
+        System.out.println(Basket.getAveragePrice());
+        System.out.println(Basket.getAveragePriceBasket());
     }
 }
