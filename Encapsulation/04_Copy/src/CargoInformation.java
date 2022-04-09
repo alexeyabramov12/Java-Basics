@@ -46,11 +46,11 @@ public class CargoInformation {
 
     @Override
     public String toString() {
-        return "dimensions =" + dimensions + "\n" +
+        return "dimensions: " + dimensions + "\n" +
                 "weight = " + weight + "\n" +
-                "deliveryAddress = '" + deliveryAddress + '\'' + "\n" +
+                "deliveryAddress = " + deliveryAddress + "\n" +
                 "canBeTunedOver = " + canBeTunedOver + "\n" +
-                "registrationNumber = '" + registrationNumber + '\'' + "\n" +
+                "registrationNumber = " + registrationNumber + "\n" +
                 "fragile = " + fragile;
     }
 }

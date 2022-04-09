@@ -11,12 +11,9 @@ public class Dimensions {
         this.lenght = lenght;
     }
 
-    public void volume() {
-        volume = width * height * lenght;
-    }
-
     public double getVolume() {
-        System.out.print("volume: ");
+        volume = width * height * lenght;
+        System.out.print("volume = ");
         return volume;
     }
 
