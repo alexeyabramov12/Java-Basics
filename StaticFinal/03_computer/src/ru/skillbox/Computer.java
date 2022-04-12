@@ -4,12 +4,6 @@ public class Computer {
 
     private final String vendor;
     private final String name;
-
-    public Computer(String vendor, String name) {
-        this.vendor = vendor;
-        this.name = name;
-    }
-
     private Processor processor;
     private OperationalMemory operationalMemory;
     private InformationAccumulator informationAccumulator;
@@ -17,7 +11,10 @@ public class Computer {
     private Keyboard keyboard;
     private double totalWeight;
 
-
+    public Computer(String vendor, String name) {
+        this.vendor = vendor;
+        this.name = name;
+    }
 
     public double getTotalWeight() {
         totalWeight = processor.getWeight()
