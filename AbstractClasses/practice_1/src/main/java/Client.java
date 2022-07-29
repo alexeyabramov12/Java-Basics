@@ -3,7 +3,6 @@ public abstract class Client {
     protected double amountMoney;
 
     public double getAmount() {
-        //TODO: реализуйте метод и удалите todo
         return amountMoney;
     }
 
@@ -11,11 +10,9 @@ public abstract class Client {
         if (amount > 0) {
             amountMoney += amount;
         }
-        //TODO: реализуйте метод и удалите todo
     }
 
     public void take(double amount) {
-        //TODO: реализуйте метод и удалите
         if (amount < amountMoney) {
             amountMoney -= amount;
         }
