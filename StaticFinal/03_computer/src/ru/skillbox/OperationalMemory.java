@@ -2,9 +2,9 @@ package ru.skillbox;
 
 public class OperationalMemory {
 
-    private String type;
-    private int volume;
-    private double weight;
+    private final String type;
+    private final int volume;
+    private final double weight;
 
     public OperationalMemory(String type, int volume, double weight) {
         this.type = type;

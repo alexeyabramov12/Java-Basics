@@ -16,5 +16,6 @@ public class Main {
         acer.setScreen(screen);
         System.out.println(acer);
         System.out.println(acer.getTotalWeight());
+
     }
 }

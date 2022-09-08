@@ -9,7 +9,6 @@ public class Computer {
     private InformationAccumulator informationAccumulator;
     private Screen screen;
     private Keyboard keyboard;
-    private double totalWeight;
 
     public Computer(String vendor, String name) {
         this.vendor = vendor;
@@ -17,12 +16,11 @@ public class Computer {
     }
 
     public double getTotalWeight() {
-        totalWeight = processor.getWeight()
+        return    processor.getWeight()
                 + informationAccumulator.getWeight()
                 + operationalMemory.getWeight()
                 + screen.getWeight()
                 + keyboard.getWeight();
-        return totalWeight;
     }
 
     public Processor getProcessor() {
@@ -74,7 +72,7 @@ public class Computer {
                  operationalMemory + "\n" +
                  informationAccumulator + "\n" +
                  screen + "\n" +
-                 keyboard ;
+                 keyboard;
     }
 
 }
