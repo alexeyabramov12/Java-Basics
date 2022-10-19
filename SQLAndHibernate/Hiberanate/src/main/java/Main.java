@@ -5,7 +5,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 
 public class Main {
 
@@ -18,10 +19,17 @@ public class Main {
 
         Session session = sessionFactory.openSession();
 
-        Student student = session.get(Student.class, 1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        System.out.println(student.getName() + " - "  + formatter.format(student.getRegistrationDate()));
+        Course course = session.get(Course.class,1);
+        List<Student> students = course.getStudents();
 
+        Purchase purchase = session.get(Purchase.class,
+                new PurchaseId("Фуриков Эрнст", "Мобильный разработчик с нуля"));
+
+        Subscription subscription = session.get(Subscription.class, new SubscriptionId(1,2));
+        students.forEach(System.out::println);
+        System.out.println(course.getTeacher().getName());
+        System.out.println(subscription.getSubscriptionDate());
+        System.out.println(purchase.getStudentName() + " - " + purchase.getCourseName() + " - " +  purchase.getPrice());
         session.close();
 
     }
