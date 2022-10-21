@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Table(name = "subscriptions")
 public class Subscription {
     @EmbeddedId
-    private SubscriptionId id;
+    private KeyStudentIdAndCourseId id;
     @Column(name = "student_id", insertable = false, updatable = false)
     private int studentId;
     @Column(name = "course_id", insertable = false, updatable = false)
@@ -14,11 +14,11 @@ public class Subscription {
     @Column(name = "subscription_date")
     private LocalDateTime subscriptionDate;
 
-    public SubscriptionId getId() {
+    public KeyStudentIdAndCourseId getId() {
         return id;
     }
 
-    public void setId(SubscriptionId id) {
+    public void setId(KeyStudentIdAndCourseId id) {
         this.id = id;
     }
 

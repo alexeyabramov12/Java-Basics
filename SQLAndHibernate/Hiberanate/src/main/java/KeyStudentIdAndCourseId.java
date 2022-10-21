@@ -5,17 +5,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class SubscriptionId implements Serializable {
+public class KeyStudentIdAndCourseId implements Serializable {
 
     @Column(name = "student_id")
     private int studentId;
     @Column(name = "course_id")
     private int courseId;
 
-    public SubscriptionId(int studentId, int courseId) {
+    public KeyStudentIdAndCourseId(int studentId, int courseId) {
         this.studentId = studentId;
         this.courseId = courseId;
     }
+
+    public KeyStudentIdAndCourseId() {}
 
     public int getStudentId() {
         return studentId;
@@ -38,10 +40,10 @@ public class SubscriptionId implements Serializable {
         if(o == null) {
             return false;
         }
-        if (!(o instanceof PurchaseId)) {
+        if (!(o instanceof KeyStudentIdAndCourseId)) {
             return false;
         }
-        SubscriptionId o1 = (SubscriptionId) o;
+        KeyStudentIdAndCourseId o1 = (KeyStudentIdAndCourseId) o;
         return Objects.equals(getStudentId(), o1.getStudentId()) &&
                 Objects.equals(getCourseId(), o1.getCourseId());
     }

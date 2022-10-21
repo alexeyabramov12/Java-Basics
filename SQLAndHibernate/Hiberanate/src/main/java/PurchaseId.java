@@ -17,6 +17,8 @@ public class PurchaseId implements Serializable {
         this.courseName = courseName;
     }
 
+    public PurchaseId() {}
+
     public String getStudentName() {
         return studentName;
     }
