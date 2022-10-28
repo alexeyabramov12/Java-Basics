@@ -2,6 +2,20 @@ public class Account {
 
     private long money;
     private String accNumber;
+    private boolean blocking;
+
+    public Account(String accNumber, long money) {
+        this.money = money;
+        this.accNumber = accNumber;
+    }
+
+    public void setBlocking(boolean blocking) {
+        this.blocking = blocking;
+    }
+
+    public boolean isBlocked() {
+        return blocking;
+    }
 
     public long getMoney() {
         return money;
