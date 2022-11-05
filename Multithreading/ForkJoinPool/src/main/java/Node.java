@@ -1,16 +1,18 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Node {
 
-    private String reference;
+    private String link;
     private List<Node> children;
-    private List<String> references;
+    private Set<String> links;
 
     public Node (String reference) {
         children = new ArrayList<>();
-        references = new ArrayList<>();
-        this.reference = reference;
+        links = new HashSet<>();
+        this.link = reference;
     }
 
     public List<Node> getChildren() {
@@ -21,20 +23,16 @@ public class Node {
         children.add(child);
     }
 
-    public String getReference() {
-        return reference;
+    public String getLink() {
+        return link;
     }
 
-    public List<String> getReferences() {
-        return references;
+    public void addLink(String link) {
+        links.add(link);
     }
 
-    public void addReference(String reference) {
-        references.add(reference);
-    }
-
-    public void addListReferences(List<String> references) {
-        this.references.addAll(references);
+    public void addListLinks(Set<String> links) {
+        this.links.addAll(links);
     }
 
 }

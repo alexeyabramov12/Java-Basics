@@ -3,14 +3,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.RecursiveTask;
 
-public class CreateSitemap extends RecursiveTask<List<String>> {
+public class CreateSitemap extends RecursiveTask<Set<String>> {
 
     private Node node;
+    private boolean stop;
 
 
     public CreateSitemap(Node node) {
@@ -18,28 +17,31 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
     }
 
     @Override
-    protected List<String> compute() {
-        List<String> references = new ArrayList<>();
+    protected Set<String> compute() {
+        Set<String> links = new HashSet<>();
         try {
+            links.add(calculateAndAddNumberOfIndents(node.getLink()));
             Thread.sleep(150);
-            Document doc = Jsoup.connect(node.getReference()).get();
+            Document doc = Jsoup.connect(node.getLink()).get();
             Elements elements = doc.select("a[href]");
             List<CreateSitemap> subTasks = new LinkedList<>();
+            Set<String> traverseLinks = TraverseLinks.getSetLinks();
             for (Element element : elements) {
-                String validUrl = "https:\\/\\/skillbox\\.ru\\/[^#pdf]+";
+                String validUrl = ".*\\.(js|css|jpg|pdf)($|\\?.*)";
                 String url = element.attr("abs:href");
-                Node child = new Node(url);
-                if (url == null || url.isEmpty() || node.getReference().equals(url) || !url.matches(validUrl)) {
+                if (url == null || url.isEmpty()|| traverseLinks.contains(url) || !url.contains(node.getLink()) || url.matches(validUrl) || stop) {
                     continue;
                 }
+                Node child = new Node(url);
                 CreateSitemap task = new CreateSitemap(child);
                 task.fork();
                 subTasks.add(task);
                 node.addChild(child);
-                System.out.println(node.getReferences().size());
+                TraverseLinks.addLink(url);
+                links.add(calculateAndAddNumberOfIndents(url));
             }
             for (CreateSitemap task : subTasks) {
-                references.addAll(task.join());
+                links.addAll(task.join());
             }
 
         } catch (IOException e) {
@@ -47,7 +49,32 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        node.addListReferences(references);
-        return references;
+        node.addListLinks(links);
+        return links;
     }
+
+    private String calculateAndAddNumberOfIndents(String url) {
+        String result = "";
+        int countTab = -3;
+        if (url.charAt(url.length() - 1) != '/') {
+            countTab = -2;
+        }
+        for (int i = 0; i < url.length(); i++) {
+            if (url.charAt(i) == '/'){
+                countTab++;
+            }
+        }
+        if (countTab >= 3) {
+            stop = true;
+            countTab = 3;
+        }
+        if (countTab < 0) {
+            countTab = 0;
+        }
+        String[] arrayTab = {"", "\t", "\t\t", "\t\t\t"};
+        String tab = arrayTab[countTab];
+        result = tab + url;
+        return result;
+    }
+
 }
