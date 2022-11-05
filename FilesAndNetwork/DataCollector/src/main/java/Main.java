@@ -1,27 +1,27 @@
 import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+        import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+        import com.fasterxml.jackson.databind.JsonNode;
+        import com.fasterxml.jackson.databind.ObjectMapper;
+        import com.fasterxml.jackson.databind.SerializationFeature;
+        import com.fasterxml.jackson.databind.node.ArrayNode;
+        import com.fasterxml.jackson.databind.node.ObjectNode;
+        import org.json.simple.JSONArray;
+        import org.json.simple.JSONObject;
+        import org.json.simple.parser.JSONParser;
+        import org.json.simple.parser.ParseException;
+        import org.jsoup.Jsoup;
+        import org.jsoup.nodes.Document;
+        import org.jsoup.nodes.Element;
+        import org.jsoup.select.Elements;
+        import java.io.File;
+        import java.io.FileWriter;
+        import java.io.IOException;
+        import java.nio.file.Files;
+        import java.nio.file.Paths;
+        import java.util.ArrayList;
+        import java.util.Collection;
+        import java.util.List;
+        import java.util.Map;
 
 
 public class Main {
@@ -52,8 +52,8 @@ public class Main {
     private static void parseLines(Document doc) {
         Elements lineElements = doc.select("span.js-metro-line");
         lineElements.forEach(lineElement ->
-            stationIndex.addLine(new Line(lineElement.text().trim(),
-                    lineElement.attr("data-line"))));
+                stationIndex.addLine(new Line(lineElement.text().trim(),
+                        lineElement.attr("data-line"))));
     }
 
     private static void parseStations(Document doc) {
@@ -109,10 +109,10 @@ public class Main {
             jsonArray.forEach(jsonData -> {
                 JSONObject jsonObject = (JSONObject) jsonData;
                 if (jsonObject.containsKey("name")) {
-                   jsonKey1(jsonObject, stations);
+                    jsonKey1(jsonObject, stations);
                 }
                 else if (jsonObject.containsKey("station_name")) {
-                   jsonKey2(jsonObject, stations);
+                    jsonKey2(jsonObject, stations);
                 }
             });
         } catch (ParseException ex) {
@@ -182,13 +182,13 @@ public class Main {
 
 
     private static void createMapJsonFile(String path) {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.set("stations", getJsonNodeStation(mapper));
-            objectNode.set("lines", getArrayNodeLine(mapper));
-            DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
-            prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        ObjectNode objectNode = mapper.createObjectNode();
+        objectNode.set("stations", getJsonNodeStation(mapper));
+        objectNode.set("lines", getArrayNodeLine(mapper));
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
         try {
             String json = mapper.writer(prettyPrinter).writeValueAsString(objectNode);
             FileWriter fileWriter = new FileWriter(path);

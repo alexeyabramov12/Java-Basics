@@ -28,6 +28,7 @@ public class Main {
                     new Thread(resizer).start();
                 }
             }
+            System.out.println( "fdfsf");
         }
         catch (Exception e){
             e.printStackTrace();

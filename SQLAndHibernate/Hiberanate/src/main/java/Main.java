@@ -25,9 +25,7 @@ public class Main {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         List<LinkedPurchaseList> linkedPurchaseLists = getLinkedPurchaseList(session);
-        linkedPurchaseLists.forEach(linkedPurchaseList -> {
-            session.save(linkedPurchaseList);
-        });
+        linkedPurchaseLists.forEach(session::persist);
         transaction.commit();
         session.close();
     }
@@ -41,7 +39,7 @@ public class Main {
             students.forEach(student -> {
                 courses.forEach(course -> {
                     if (purchase.getStudentName().equals(student.getName()) && purchase.getCourseName().equals(course.getName())) {
-                        LinkedPurchaseList linkedPurchaseList= new LinkedPurchaseList();
+                        LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
                         linkedPurchaseList.setStudentId(student.getId());
                         linkedPurchaseList.setCourseId(course.getId());
                         linkedPurchaseList.setId(new KeyStudentIdAndCourseId(student.getId(), course.getId()));
