@@ -1,17 +1,15 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Node {
 
     private String link;
     private List<Node> children;
-    private Set<String> links;
+    private List<String> links;
 
     public Node (String reference) {
         children = new ArrayList<>();
-        links = new HashSet<>();
+        links = new ArrayList<>();
         this.link = reference;
     }
 
@@ -31,7 +29,7 @@ public class Node {
         links.add(link);
     }
 
-    public void addListLinks(Set<String> links) {
+    public void addListLinks(List<String> links) {
         this.links.addAll(links);
     }
 

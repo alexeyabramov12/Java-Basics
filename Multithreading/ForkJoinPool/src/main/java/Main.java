@@ -7,15 +7,17 @@ public class Main {
 
     public static void main(String[] args) {
         String url = "https://lenta.ru/";
-        Node root = new Node(url);
         String pathFile = "data/file.txt";
-
+        Node root = new Node(url);
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        Set<String> links = forkJoinPool.invoke(new CreateSitemap(root));
-        List<String> linksList = new ArrayList<>(links);
-        Collections.sort(linksList, Collections.reverseOrder());
+        List<String> links = new ArrayList<>();
+        links.add(url);
+        TraverseLinks.addLink(url);
+        links.addAll(forkJoinPool.invoke(new CreateSitemap(root)));
+        Collections.sort(links, Collections.reverseOrder());
+        System.out.println(links.size());
         StringBuilder builder = new StringBuilder();
-        linksList.forEach(l -> builder.append(l + "\n"));
+        links.forEach(l -> builder.append(l + "\n"));
         try {
             FileWriter fileWriter = new FileWriter(pathFile);
             fileWriter.write(builder.toString());
