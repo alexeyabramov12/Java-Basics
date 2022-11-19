@@ -26,7 +26,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         task.setCreationTime(LocalDateTime.now());
-        task.setDone("false");
+        task.setDone(false);
         Task saveTask = taskRepository.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveTask);
     }
@@ -63,17 +63,17 @@ public class TaskController {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
             Task updateTask = optionalTask.get();
-            if (isDone != null ) {
-                updateTask.setDone(isDone.toString());
+            if (isDone != null && updateTask.isDone() != isDone) {
+                updateTask.setDone(isDone);
             }
-            if (title != null && !title.isEmpty() && !title.equals(updateTask.getTitle())) {
+            if (title != null && !updateTask.getTitle().equals(title)) {
                 updateTask.setTitle(title);
             }
-            if (description != null && !description.isEmpty() && !description.equals(updateTask.getDescription())) {
+            if (description != null && !updateTask.getDescription().equals(description)) {
                 updateTask.setDescription(description);
             }
             taskRepository.save(updateTask);
-            return ResponseEntity.status(HttpStatus.CREATED).body(updateTask);
+            return ResponseEntity.status(HttpStatus.OK).body(updateTask);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }

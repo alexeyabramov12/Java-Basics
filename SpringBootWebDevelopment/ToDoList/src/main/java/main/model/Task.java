@@ -13,7 +13,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private LocalDateTime creationTime;
-    private String isDone;
+    private boolean isDone;
     private String title;
     private String description;
 
@@ -33,11 +33,11 @@ public class Task {
         this.creationTime = creationTime;
     }
 
-    public String isDone() {
+    public boolean isDone() {
         return isDone;
     }
 
-    public void setDone(String done) {
+    public void setDone(boolean done) {
         isDone = done;
     }
 
