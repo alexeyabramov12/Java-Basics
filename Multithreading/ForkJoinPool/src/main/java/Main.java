@@ -15,7 +15,6 @@ public class Main {
         StringBuilder builder = new StringBuilder();
 
         links.add(url);
-        TraverseLinks.addLink(url);
         links.addAll(forkJoinPool.invoke(new CreateSitemap(root)));
 
         Collections.sort(links, Collections.reverseOrder());
