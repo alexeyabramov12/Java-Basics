@@ -7,10 +7,10 @@ public class Node {
     private List<Node> children;
     private List<String> links;
 
-    public Node (String reference) {
+    public Node (String link) {
         children = new ArrayList<>();
         links = new ArrayList<>();
-        this.link = reference;
+        this.link = link;
     }
 
     public List<Node> getChildren() {

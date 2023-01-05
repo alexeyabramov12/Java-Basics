@@ -25,15 +25,13 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
             Elements elements = doc.select("a[href]");
             List<CreateSitemap> subTasks = new LinkedList<>();
             Set<String> traverseLinks = TraverseLinks.getSetLinks();
+            String validUrl = ".*\\.(js|css|jpg|pdf)($|\\?.*)";
+            String[] arrayTab = {"", "\t", "\t\t", "\t\t\t"};
             for (Element element : elements) {
-                String validUrl = ".*\\.(js|css|jpg|pdf)($|\\?.*)";
                 String url = element.attr("abs:href");
-                if (url == null || url.isEmpty()) {
-                    continue;
-                }
                 int countTub = calculateAndAddNumberOfIndents(url);
                 stop = countTub > 3;
-                if (traverseLinks.contains(url) || !url.contains(node.getLink()) || url.matches(validUrl) || stop) {
+                if (url.isEmpty() || traverseLinks.contains(url) || !url.contains(node.getLink()) || url.matches(validUrl) || stop) {
                     continue;
                 }
                 Node child = new Node(url);
@@ -42,7 +40,6 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
                 subTasks.add(task);
                 node.addChild(child);
                 TraverseLinks.addLink(url);
-                String[] arrayTab = {"", "\t", "\t\t", "\t\t\t"};
                 links.add(arrayTab[countTub] + url);
             }
             for (CreateSitemap task : subTasks) {
@@ -59,6 +56,9 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
     }
 
     private int calculateAndAddNumberOfIndents(String url) {
+        if (url.isEmpty()) {
+            return 0;
+        }
         int countTab = -3;
         if (url.charAt(url.length() - 1) != '/') {
             countTab = -2;
@@ -73,5 +73,4 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
         }
         return countTab;
     }
-
 }
