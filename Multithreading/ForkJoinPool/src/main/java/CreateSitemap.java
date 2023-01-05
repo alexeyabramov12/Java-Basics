@@ -32,7 +32,6 @@ public class CreateSitemap extends RecursiveTask<List<String>> {
                 int countTub = calculateAndAddNumberOfIndents(url);
                 stop = countTub > 3;
                 if (url.isEmpty() || traverseLinks.contains(url) || !url.contains(node.getLink()) || url.matches(validUrl) || stop) {
-                    continue;
                 }
                 Node child = new Node(url);
                 CreateSitemap task = new CreateSitemap(child);
