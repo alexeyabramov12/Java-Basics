@@ -1,3 +1,3 @@
 # Java-Basics
 
-Task for learning the basics of java
+Tasks for learning the basics of java
